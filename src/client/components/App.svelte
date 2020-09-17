@@ -1,31 +1,54 @@
 <script>
-    export let name = 'Jason'
+    export let name = '@JasonEricDavis'
+    let message = ''
+
+    let socket = new WebSocket(`ws://${location.host}`)
+    socket.onopen = function(e) {
+        console.log('connection made')
+    }
+
+    socket.onmessage = function(e) {
+        console.log(`Recieved Message: ${e.data}`);
+        message = e.data;
+    }
 </script>
 
 <style>
-    h1 {
-        background-color: orange;
+    h2 {
+        background-color: lightblue;
     }
 
     .wrapper {
         display: grid;
-        grid-template-columns: 1fr 150px;
-        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 300px;
+        grid-template-rows: 1fr 70px;
         height: 100vh;
     }
 
     .window {
-        background-color: yellow;
+        background-color: transparent;
     }
 
-    .sidebar {
-        background-color: green;
+    .sidebar h2{
+        float: right;
+        padding-right: 5px;
     }
+
+    .row-bottom {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        color: #0581d3;
+        padding: 20px;
+        background-color: lightgreen;
+    }
+
+    
 </style>
 
 <div class="wrapper">
     <div class="window"></div>
     <div class="sidebar">
-        <h1>Hello {name}</h1>
+        <h2>{name}</h2>
     </div>
+    <div class="row-bottom">{message}</div>
 </div>
